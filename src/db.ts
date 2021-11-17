@@ -1,3 +1,5 @@
+import { getRandomInt } from "./getRandomInt";
+
 export interface DbItem {
   // sketch out interface here
 }
@@ -17,17 +19,32 @@ let idCounter = 0;
  * @param n - the number of items to generate
  * @returns the created items
  */
-export const addDummyDbItems = (n: number): DbItemWithId[] => {
+export const addDummyNotCompleteDbItems = (n: number): DbItemWithId[] => {
   const createdSignatures: DbItemWithId[] = [];
   for (let count = 0; count < n; count++) {
     const createdSignature = addDbItem({
-      // possibly add some generated data here
+      description: "Test to-do item",
+      isComplete: false,
+      creationDate: `${getRandomInt(30)}-11-2021`,
+      dueDate: `${getRandomInt(30)}-${getRandomInt(12)}-2021`,
     });
     createdSignatures.push(createdSignature);
   }
   return createdSignatures;
 };
-
+export const addDummyCompleteDbItems = (n: number): DbItemWithId[] => {
+  const createdSignatures: DbItemWithId[] = [];
+  for (let count = 0; count < n; count++) {
+    const createdSignature = addDbItem({
+      description: "Test to-do item",
+      isComplete: true,
+      creationDate: `${getRandomInt(30)}-11-2021`,
+      dueDate: `${getRandomInt(17)}-${getRandomInt(11)}-2021`,
+    });
+    createdSignatures.push(createdSignature);
+  }
+  return createdSignatures;
+};
 /**
  * Adds in a single item to the database
  *
@@ -71,7 +88,7 @@ export const deleteDbItemById = (id: number): DbItemWithId | "not found" => {
 const findIndexOfDbItemById = (id: number): number | "not found" => {
   const matchingIdx = db.findIndex((entry) => entry.id === id);
   // .findIndex returns -1 if not located
-  if (matchingIdx) {
+  if (matchingIdx >= 0) {
     return matchingIdx;
   } else {
     return "not found";
