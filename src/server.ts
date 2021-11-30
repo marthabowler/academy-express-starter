@@ -71,7 +71,6 @@ app.delete<{ id: string }>("/items/:id", (req, res) => {
     res.status(200).json(matchingSignature);
   }
 });
-
 // PATCH /items/:id
 app.patch<{ id: string }, {}, Partial<DbItem>>("/items/:id", (req, res) => {
   const matchingSignature = updateDbItemById(parseInt(req.params.id), req.body);
