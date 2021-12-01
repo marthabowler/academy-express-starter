@@ -27,7 +27,6 @@ app.use(cors());
 
 // read in contents of any environment variables in the .env file
 dotenv.config();
-
 // use the environment variable PORT, or 4000 as a fallback
 const PORT_NUMBER = process.env.PORT ?? 4000;
 
